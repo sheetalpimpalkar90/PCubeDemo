@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.spimpalkar.pcubedemo.R;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

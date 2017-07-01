@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by sheetal.pimpalkar on 6/30/2017.
  */
 
-public class TopDealModelClass implements Serializable{
+public class TopDealModel implements Serializable{
 
     int topDealId;
     String topDealTitle;

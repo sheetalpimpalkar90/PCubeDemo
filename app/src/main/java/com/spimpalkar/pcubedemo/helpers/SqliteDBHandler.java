@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.spimpalkar.pcubedemo.models.PopularDealModel;
+import com.spimpalkar.pcubedemo.models.TopDealModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,13 +86,13 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
 
     /***********************************CRUD operations on Top Deals Table*****************************************/
     /*Add top deal information to Top deal table*/
-    public void addTopDeal(TopDealModelClass topDealModelClass) {
+    public void addTopDeal(TopDealModel topDealModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TOP_DEAL_TITLE, topDealModelClass.getTopDealTitle()); // add title
-        values.put(TOP_DEAL_IMAGE, topDealModelClass.getTopDealImage()); // add image
-        values.put(TOP_DEAL_DESCRIPTION, topDealModelClass.getTopDealDescription()); // add description
+        values.put(TOP_DEAL_TITLE, topDealModel.getTopDealTitle()); // add title
+        values.put(TOP_DEAL_IMAGE, topDealModel.getTopDealImage()); // add image
+        values.put(TOP_DEAL_DESCRIPTION, topDealModel.getTopDealDescription()); // add description
 
         // Inserting Row
         db.insert(TABLE_TOP_DEALS, null, values);
@@ -97,14 +100,14 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
     }
 
     /*Add list of top deals Top deal table*/
-    public void addTopDealList(List<TopDealModelClass> topDealModelClassList) {
+    public void addTopDealList(List<TopDealModel> topDealModelList) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values;
-        for (int i = 0; i < topDealModelClassList.size(); i++) {
+        for (int i = 0; i < topDealModelList.size(); i++) {
             values = new ContentValues();
-            values.put(TOP_DEAL_TITLE, topDealModelClassList.get(i).getTopDealTitle()); // add title
-            values.put(TOP_DEAL_IMAGE, topDealModelClassList.get(i).getTopDealImage()); // add image
-            values.put(TOP_DEAL_DESCRIPTION, topDealModelClassList.get(i).getTopDealDescription()); // add description
+            values.put(TOP_DEAL_TITLE, topDealModelList.get(i).getTopDealTitle()); // add title
+            values.put(TOP_DEAL_IMAGE, topDealModelList.get(i).getTopDealImage()); // add image
+            values.put(TOP_DEAL_DESCRIPTION, topDealModelList.get(i).getTopDealDescription()); // add description
 
             // Inserting Row
             db.insert(TABLE_TOP_DEALS, null, values);
@@ -113,8 +116,8 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
     }
 
     /*Get list of top deals*/
-    public List<TopDealModelClass> getAllTopDeals() {
-        List<TopDealModelClass> topDealModelClassList = new ArrayList<TopDealModelClass>();
+    public List<TopDealModel> getAllTopDeals() {
+        List<TopDealModel> topDealModelList = new ArrayList<TopDealModel>();
         String selectQuery = "SELECT  * FROM " + TABLE_TOP_DEALS;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -122,21 +125,21 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                TopDealModelClass topDealModelClass = new TopDealModelClass();
-                topDealModelClass.setTopDealId(Integer.parseInt(cursor.getString(0)));
-                topDealModelClass.setTopDealImage(cursor.getString(1));
-                topDealModelClass.setTopDealTitle(cursor.getString(2));
-                topDealModelClass.setTopDealDescription(cursor.getString(3));
+                TopDealModel topDealModel = new TopDealModel();
+                topDealModel.setTopDealId(Integer.parseInt(cursor.getString(0)));
+                topDealModel.setTopDealImage(cursor.getString(1));
+                topDealModel.setTopDealTitle(cursor.getString(2));
+                topDealModel.setTopDealDescription(cursor.getString(3));
                 // Adding top deal to list
-                topDealModelClassList.add(topDealModelClass);
+                topDealModelList.add(topDealModel);
             } while (cursor.moveToNext());
         }
 
-        return topDealModelClassList;
+        return topDealModelList;
     }
 
     /*Get Top Deal by ID*/
-    public TopDealModelClass getTopDealByID(int id) {
+    public TopDealModel getTopDealByID(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_TOP_DEALS, new String[]{TOP_DEAL_ID,
@@ -144,47 +147,47 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
-        TopDealModelClass topDealModelClass = new TopDealModelClass();
-        topDealModelClass.setTopDealId(Integer.parseInt(cursor.getString(0)));
-        topDealModelClass.setTopDealTitle(cursor.getString(1));
-        topDealModelClass.setTopDealImage(cursor.getString(2));
-        topDealModelClass.setTopDealDescription(cursor.getString(3));
+        TopDealModel topDealModel = new TopDealModel();
+        topDealModel.setTopDealId(Integer.parseInt(cursor.getString(0)));
+        topDealModel.setTopDealTitle(cursor.getString(1));
+        topDealModel.setTopDealImage(cursor.getString(2));
+        topDealModel.setTopDealDescription(cursor.getString(3));
 
-        return topDealModelClass;
+        return topDealModel;
     }
 
     /*Update particular row in Top deal table*/
-    public int updateTopDealTable(TopDealModelClass topDealModelClass) {
+    public int updateTopDealTable(TopDealModel topDealModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TOP_DEAL_TITLE, topDealModelClass.getTopDealTitle());
-        values.put(TOP_DEAL_IMAGE, topDealModelClass.getTopDealImage());
-        values.put(TOP_DEAL_DESCRIPTION, topDealModelClass.getTopDealDescription());
+        values.put(TOP_DEAL_TITLE, topDealModel.getTopDealTitle());
+        values.put(TOP_DEAL_IMAGE, topDealModel.getTopDealImage());
+        values.put(TOP_DEAL_DESCRIPTION, topDealModel.getTopDealDescription());
 
         // updating row
         return db.update(TABLE_TOP_DEALS, values, TOP_DEAL_ID + " = ?",
-                new String[]{String.valueOf(topDealModelClass.getTopDealId())});
+                new String[]{String.valueOf(topDealModel.getTopDealId())});
     }
 
     // Deleting single contact
-    public void deleteContact(TopDealModelClass topDealModelClass) {
+    public void deleteContact(TopDealModel topDealModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TOP_DEALS, TOP_DEAL_ID + " = ?",
-                new String[]{String.valueOf(topDealModelClass.getTopDealId())});
+                new String[]{String.valueOf(topDealModel.getTopDealId())});
         db.close();
     }
 
 
     /*****************************CRUD operations on Popular Deals Table**********************************/
     /*Add Popular deal information to Popular deal table*/
-    public void addPopularDeal(PopularDealModelClass popularDealModelClass) {
+    public void addPopularDeal(PopularDealModel popularDealModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(POPULAR_DEAL_TITLE, popularDealModelClass.getPopularDealTitle()); // add title
-        values.put(POPULAR_DEAL_IMAGE, popularDealModelClass.getPopularDealImage()); // add image
-        values.put(POPULAR_DEAL_DESCRIPTION, popularDealModelClass.getPopularDealDescription()); // add description
+        values.put(POPULAR_DEAL_TITLE, popularDealModel.getPopularDealTitle()); // add title
+        values.put(POPULAR_DEAL_IMAGE, popularDealModel.getPopularDealImage()); // add image
+        values.put(POPULAR_DEAL_DESCRIPTION, popularDealModel.getPopularDealDescription()); // add description
 
         // Inserting Row
         db.insert(TABLE_POPULAR_DEALS, null, values);
@@ -192,14 +195,14 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
     }
 
     /*Add list of popular deals to popular deal table*/
-    public void addPopularDealList(List<PopularDealModelClass> popularDealModelClassList) {
+    public void addPopularDealList(List<PopularDealModel> popularDealModelList) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values;
-        for (int i = 0; i < popularDealModelClassList.size(); i++) {
+        for (int i = 0; i < popularDealModelList.size(); i++) {
             values = new ContentValues();
-            values.put(POPULAR_DEAL_TITLE, popularDealModelClassList.get(i).getPopularDealTitle()); // add title
-            values.put(POPULAR_DEAL_IMAGE, popularDealModelClassList.get(i).getPopularDealImage()); // add image
-            values.put(POPULAR_DEAL_DESCRIPTION, popularDealModelClassList.get(i).getPopularDealDescription()); // add description
+            values.put(POPULAR_DEAL_TITLE, popularDealModelList.get(i).getPopularDealTitle()); // add title
+            values.put(POPULAR_DEAL_IMAGE, popularDealModelList.get(i).getPopularDealImage()); // add image
+            values.put(POPULAR_DEAL_DESCRIPTION, popularDealModelList.get(i).getPopularDealDescription()); // add description
 
             // Inserting Row
             db.insert(TABLE_POPULAR_DEALS, null, values);
@@ -208,8 +211,8 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
     }
 
     /*Get list of popular deals*/
-    public List<PopularDealModelClass> getAllPopularDeals() {
-        List<PopularDealModelClass> popularDealModelClassList = new ArrayList<PopularDealModelClass>();
+    public List<PopularDealModel> getAllPopularDeals() {
+        List<PopularDealModel> popularDealModelList = new ArrayList<PopularDealModel>();
         String selectQuery = "SELECT  * FROM " + TABLE_POPULAR_DEALS;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -217,21 +220,21 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                PopularDealModelClass popularDealModelClass = new PopularDealModelClass();
-                popularDealModelClass.setPopularDealId(Integer.parseInt(cursor.getString(0)));
-                popularDealModelClass.setPopularDealImage(cursor.getString(1));
-                popularDealModelClass.setPopularDealTitle(cursor.getString(2));
-                popularDealModelClass.setPopularDealDescription(cursor.getString(3));
+                PopularDealModel popularDealModel = new PopularDealModel();
+                popularDealModel.setPopularDealId(Integer.parseInt(cursor.getString(0)));
+                popularDealModel.setPopularDealImage(cursor.getString(1));
+                popularDealModel.setPopularDealTitle(cursor.getString(2));
+                popularDealModel.setPopularDealDescription(cursor.getString(3));
                 // Adding popular deal to list
-                popularDealModelClassList.add(popularDealModelClass);
+                popularDealModelList.add(popularDealModel);
             } while (cursor.moveToNext());
         }
 
-        return popularDealModelClassList;
+        return popularDealModelList;
     }
 
     /*Get popular Deal by ID*/
-    public PopularDealModelClass getPopularDealByID(int id) {
+    public PopularDealModel getPopularDealByID(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_POPULAR_DEALS, new String[]{POPULAR_DEAL_ID,
@@ -241,34 +244,34 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 //        Contact contact = new Contact(Integer.parseInt(cursor.getString(0)),
 //                cursor.getString(1), cursor.getString(2));
-        PopularDealModelClass popularDealModelClass = new PopularDealModelClass();
-        popularDealModelClass.setPopularDealId(Integer.parseInt(cursor.getString(0)));
-        popularDealModelClass.setPopularDealTitle(cursor.getString(1));
-        popularDealModelClass.setPopularDealImage(cursor.getString(2));
-        popularDealModelClass.setPopularDealDescription(cursor.getString(3));
+        PopularDealModel popularDealModel = new PopularDealModel();
+        popularDealModel.setPopularDealId(Integer.parseInt(cursor.getString(0)));
+        popularDealModel.setPopularDealTitle(cursor.getString(1));
+        popularDealModel.setPopularDealImage(cursor.getString(2));
+        popularDealModel.setPopularDealDescription(cursor.getString(3));
 
-        return popularDealModelClass;
+        return popularDealModel;
     }
 
     /*Update particular row in Popular deal table*/
-    public int updatePopularDealTable(PopularDealModelClass popularDealModelClass) {
+    public int updatePopularDealTable(PopularDealModel popularDealModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(POPULAR_DEAL_TITLE, popularDealModelClass.getPopularDealTitle());
-        values.put(POPULAR_DEAL_IMAGE, popularDealModelClass.getPopularDealImage());
-        values.put(POPULAR_DEAL_DESCRIPTION, popularDealModelClass.getPopularDealDescription());
+        values.put(POPULAR_DEAL_TITLE, popularDealModel.getPopularDealTitle());
+        values.put(POPULAR_DEAL_IMAGE, popularDealModel.getPopularDealImage());
+        values.put(POPULAR_DEAL_DESCRIPTION, popularDealModel.getPopularDealDescription());
 
         // updating row
         return db.update(TABLE_POPULAR_DEALS, values, POPULAR_DEAL_ID + " = ?",
-                new String[]{String.valueOf(popularDealModelClass.getPopularDealId())});
+                new String[]{String.valueOf(popularDealModel.getPopularDealId())});
     }
 
     // Deleting single contact
-    public void deleteContact(PopularDealModelClass popularDealModelClass) {
+    public void deleteContact(PopularDealModel popularDealModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_POPULAR_DEALS, POPULAR_DEAL_ID + " = ?",
-                new String[]{String.valueOf(popularDealModelClass.getPopularDealId())});
+                new String[]{String.valueOf(popularDealModel.getPopularDealId())});
         db.close();
     }
 }
