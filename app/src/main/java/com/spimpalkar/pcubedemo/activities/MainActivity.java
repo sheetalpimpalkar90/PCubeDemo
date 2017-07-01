@@ -1,7 +1,9 @@
-package com.spimpalkar.pcubedemo;
+package com.spimpalkar.pcubedemo.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.spimpalkar.pcubedemo.R;
 
 public class MainActivity extends AppCompatActivity {
 
