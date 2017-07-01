@@ -7,4 +7,16 @@
 
     <string name="action_settings">Settings</string>
     <string name="logout">Logout</string>
+    <string name="deals">Deals</string>
+    <string name="top_deals">Top</string>
+    <string name="popular_deals">Popular</string>
+
+    <!--Server response-->
+    <string name="server_response_success">success</string>
+    <string name="server_response_fail">fail</string>
+    <string name="server_response_error">error</string>
+    <string name="server_response_errors">errors</string>
+    <string name="server_response_message">message</string>
+    <string name="server_response_null">No response from server</string>
+
 </resources>
