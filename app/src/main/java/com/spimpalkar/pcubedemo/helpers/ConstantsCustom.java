@@ -6,7 +6,7 @@ import android.util.DisplayMetrics;
 /**
  * Created by QMCPL on 08/05/17.
  */
-
+// Constant class
 public class ConstantsCustom
 {
 //    public static final  String baseServer                      = "http://192.168.1.193:3000/api/";  /*Atish Local Url*/
