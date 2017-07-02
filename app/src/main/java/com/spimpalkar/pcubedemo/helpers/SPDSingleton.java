@@ -15,13 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class SPDSingleton
 {
-    public static final String MY_PREFS_NAME = "mySharedPreference";
-    public static final String FCM_PREFS = "fcmPreference";
-    ProgressDialog activityIndicator;
+    public static final String MY_PREFS_NAME = "login_preferences";
+    ProgressDialog progressDialog;
     private static SPDSingleton spdSingleton;
 
     public static SPDSingleton getInstance() {
@@ -38,19 +38,6 @@ public class SPDSingleton
         editor.apply();
     }
 
-    public void setFcmStringToSp(String value, String key, Context context)
-    {
-        SharedPreferences.Editor editor = context.getSharedPreferences(FCM_PREFS, Context.MODE_PRIVATE).edit();
-        editor.putString(key, value);
-        editor.apply();
-    }
-
-    public String getFcmStringFromSp(String key, Context context)
-    {
-        SharedPreferences prefs = context.getSharedPreferences(FCM_PREFS, Context.MODE_PRIVATE);
-        return prefs.getString(key, "N/A");
-    }
-
     public void setIntegerToSp(int value, String key, Context context)
     {
         SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
@@ -60,7 +47,6 @@ public class SPDSingleton
 
     public void setDoubleToSp(double value, String key, Context context)
     {
-
         SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
         editor.putFloat(key, (float) value);
         editor.apply();
@@ -90,44 +76,29 @@ public class SPDSingleton
         prefs.edit().clear().commit();
     }
 
-    public  Boolean isBothStringSame(String strI, String strII)
+    /* Short toast message */
+    public void showShortToast(String txtString, Context contextPassed)
     {
-        if (strI.equals(strII))
-        {
-            return true;
-        }else
-        {
-            return false;
-        }
-
+        Toast.makeText(contextPassed, txtString, Toast.LENGTH_SHORT).show();
     }
 
-    /* Toast message */
-    public void showToastWithText(String txtString, Context contextPassed)
+    /* Long toast message*/
+    public void showLongToast(String txtString, Context contextPassed)
     {
-        //TopMessageManager.showWarning(txtString);
-    }
-
-    public void showSuccessToastWithText(String txtString, Context contextPassed)
-    {
-        //TopMessageManager.showSuccess(txtString);
-    }
-
-    public void showToastWithTitleText(String txtString, String title)
-    {
+        Toast.makeText(contextPassed, txtString, Toast.LENGTH_LONG).show();
     }
 
     // Indicators
-    public void  showIndicator(Context passedContext, String displayString, Boolean blockUI)
+    public void  showProgressDialog(Context passedContext, String displayString, Boolean blockUI)
     {
-        activityIndicator = new ProgressDialog(passedContext);
-        activityIndicator.setMessage(displayString);
-        activityIndicator.setCancelable(blockUI);
-        activityIndicator.show();
+        progressDialog = new ProgressDialog(passedContext);
+        progressDialog.setMessage(displayString);
+        progressDialog.setCancelable(blockUI);
+        progressDialog.show();
     }
 
-    public  void hideIndicator()
+    public  void hideProgressDialog()
     {
-        activityIndicator.hide();
+        progressDialog.hide();
     }
 }

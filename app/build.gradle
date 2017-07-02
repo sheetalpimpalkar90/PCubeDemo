@@ -25,11 +25,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    /*Faceboook SDK*/
-    //compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.android.support:design:25.1.0'
-    compile 'com.android.volley:volley:1.0.0'
     testCompile 'junit:junit:4.12'
+    /*Faceboook SDK*/
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    /*Volley library*/
+    compile 'com.android.volley:volley:1.0.0'
 }

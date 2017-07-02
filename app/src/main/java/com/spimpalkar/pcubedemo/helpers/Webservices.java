@@ -36,7 +36,7 @@ public class Webservices
     public  void startPostRequest(String serviceName, JSONObject params)
     {
         webserviceObject.onPreFetch();
-        String finalURL = ConstantsCustom.baseServer+serviceName;
+        String finalURL = Constants.BASE_SERVER+serviceName;
         System.out.print(finalURL);
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest
@@ -74,7 +74,7 @@ public class Webservices
     public  void startPatchRequest(String serviceName, JSONObject params)
     {
         webserviceObject.onPreFetch();
-        String finalURL = ConstantsCustom.baseServer+serviceName;
+        String finalURL = Constants.BASE_SERVER+serviceName;
         System.out.print(finalURL);
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest
@@ -113,7 +113,7 @@ public class Webservices
     {
         webserviceObject.onPreFetch();
         JsonObjectRequest jsonRequest = new JsonObjectRequest
-                (Request.Method.POST, ConstantsCustom.baseServer+serviceName, params, new Response.Listener<JSONObject>()
+                (Request.Method.POST, Constants.BASE_SERVER+serviceName, params, new Response.Listener<JSONObject>()
                 {
                     @Override
                     public void onResponse(JSONObject response)
@@ -141,7 +141,7 @@ public class Webservices
                     public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> headers = new HashMap<>();
                     headers.put("Content-Type", "application/json");
-                    headers.put("Authorization", "Bearer " + ConstantsCustom.baseServer);
+                    headers.put("Authorization", "Bearer " + Constants.BASE_SERVER);
                     return headers;
         }};
 
@@ -152,15 +152,15 @@ public class Webservices
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Bearer " + ConstantsCustom.baseServer);
+                headers.put("Authorization", "Bearer " + Constants.baseServer);
                 return headers;
             };*/
     public void startGetRequest(String serviceName)
     {
         webserviceObject.onPreFetch();
-        Log.i("URL >>", ConstantsCustom.baseServer+serviceName);
+        Log.i("URL >>", Constants.BASE_SERVER+serviceName);
         JsonObjectRequest jsonRequest = new JsonObjectRequest
-                (Request.Method.GET, ConstantsCustom.baseServer+serviceName, null, new Response.Listener<JSONObject>()
+                (Request.Method.GET, Constants.BASE_SERVER+serviceName, null, new Response.Listener<JSONObject>()
                 {
                     @Override
                     public void onResponse(JSONObject response)
@@ -190,54 +190,13 @@ public class Webservices
 
     }
 
-    public void startGetRequestWithAuthorization(String serviceName)
-    {
-        webserviceObject.onPreFetch();
-        JsonObjectRequest jsonRequest = new JsonObjectRequest
-                (Request.Method.GET, ConstantsCustom.baseServer+serviceName, null, new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response)
-                    {
-                        // the response is already constructed as a JSONObject!
-                        System.out.print("Response is");
-                        System.out.print(response);
-                        webserviceObject.jSONResponseAfterRequest(response);
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        JSONObject obj = new JSONObject();
-                        try {
-                            obj.put("status", "fail");
-                            obj.put("errors", "Request cannot initiate");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        webserviceObject.jSONResponseAfterRequest(obj);
-                    }
-                }){@Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Content-Type", "application/json");
-                        headers.put("Authorization", "Bearer " + ConstantsCustom.accessToken);
-                        return headers;
-        }};
-
-        Volley.newRequestQueue(passedActivity).add(jsonRequest);
-
-    }
-
     public void startGetArrayRequest(String serviceName)
     {
         webserviceObject.onPreFetch();
-        String finalURL = ConstantsCustom.baseServer+serviceName;
+        String finalURL = Constants.BASE_SERVER+serviceName;
         Log.i("GET",finalURL);
         JsonArrayRequest jsonRequest = new JsonArrayRequest
-                (Request.Method.GET, ConstantsCustom.baseServer+serviceName, null, new Response.Listener<JSONArray>()
+                (Request.Method.GET, Constants.BASE_SERVER+serviceName, null, new Response.Listener<JSONArray>()
                 {
                     @Override
                     public void onResponse(JSONArray response)
@@ -256,47 +215,6 @@ public class Webservices
                         webserviceObject.jSONArrayResponseAfterRequest(obj);
                     }
                 });
-
-        Volley.newRequestQueue(passedActivity).add(jsonRequest);
-
-    }
-
-
-    public void startDeleteRequestWithAuthorization(String serviceName, JSONObject params)
-    {
-        webserviceObject.onPreFetch();
-        JsonObjectRequest jsonRequest = new JsonObjectRequest
-                (Request.Method.DELETE, ConstantsCustom.baseServer+serviceName, params, new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response)
-                    {
-                        // the response is already constructed as a JSONObject!
-                        Log.i("Response >> ", ""+response);
-                        webserviceObject.jSONResponseAfterRequest(response);
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        JSONObject obj = new JSONObject();
-                        try {
-                            obj.put("status", "fail");
-                            obj.put("errors", "Request cannot initiate");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        webserviceObject.jSONResponseAfterRequest(obj);
-                    }
-                }){@Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
-            Map<String, String> headers = new HashMap<>();
-            headers.put("Content-Type", "application/json");
-//            headers.put("Authorization", "Bearer " + ConstantsCustom.accessToken);
-            headers.put("token", ConstantsCustom.accessToken);
-            return headers;
-        }};
 
         Volley.newRequestQueue(passedActivity).add(jsonRequest);
 

@@ -11,6 +11,9 @@
     <string name="top_deals">Top</string>
     <string name="popular_deals">Popular</string>
 
+    <!--Facebook-->
+    <string name="facebook_app_id">419238231809344</string>
+
     <!--Server response-->
     <string name="server_response_success">success</string>
     <string name="server_response_fail">fail</string>
