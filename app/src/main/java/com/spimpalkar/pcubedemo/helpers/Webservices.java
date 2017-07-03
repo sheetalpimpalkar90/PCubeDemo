@@ -35,14 +35,15 @@ public class Webservices
     }
 
     // Get Request With Authorization Header
-    public void startGetRequestWithAuthorization(String serviceName, JSONObject params)
+    public void startGetRequestWithAuthorization(String serviceName, JSONObject params, int perPage, int pageCount)
     {
         webserviceObject.onPreFetch();
 
-        String finalURL = Constants.BASE_SERVER + serviceName;
+        String finalURL = Constants.BASE_SERVER + serviceName + "&per_page="+perPage+"&page="+pageCount;
+       // https://stagingapi.desidime.com/v3/deals.json?type=top&deal_view=true&per_page=30&page=1
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest
-                (Request.Method.GET, finalURL, params, new Response.Listener<JSONObject>()
+                (Request.Method.GET, finalURL, null, new Response.Listener<JSONObject>()
                 {
                     @Override
                     public void onResponse(JSONObject response)
@@ -72,7 +73,6 @@ public class Webservices
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
             headers.put("accept", "text/javascript");
-            headers.put("Content-Type", "application/json");
             headers.put("X-Desidime-Client", Constants.accessToken); // passing access token
 
             return headers;

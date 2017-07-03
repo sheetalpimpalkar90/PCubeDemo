@@ -25,8 +25,19 @@ public class DealModel implements Serializable {
     /*Class to get deal object*/
     public class DealDataModel implements Serializable {
 
+        @SerializedName("total_count")
+        int totalDealCount;
+
         @SerializedName("data")
         ArrayList<DealModelDataList> modelDataListArrayList;
+
+        public int getTotalDealCount() {
+            return totalDealCount;
+        }
+
+        public void setTotalDealCount(int totalDealCount) {
+            this.totalDealCount = totalDealCount;
+        }
 
         public ArrayList<DealModelDataList> getModelDataListArrayList() {
             return modelDataListArrayList;

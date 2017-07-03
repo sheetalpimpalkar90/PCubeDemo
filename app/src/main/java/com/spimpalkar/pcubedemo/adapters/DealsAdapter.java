@@ -2,6 +2,7 @@ package com.spimpalkar.pcubedemo.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spimpalkar.pcubedemo.R;
+import com.spimpalkar.pcubedemo.activities.BaseActivity;
+import com.spimpalkar.pcubedemo.helpers.Constants;
+import com.spimpalkar.pcubedemo.helpers.SPDSingleton;
+import com.spimpalkar.pcubedemo.helpers.SqliteDBHandler;
 import com.spimpalkar.pcubedemo.models.DealModel;
 import com.spimpalkar.pcubedemo.models.DealModelDataList;
 import com.squareup.picasso.Picasso;
@@ -67,10 +72,16 @@ public class DealsAdapter extends BaseAdapter{
         }
 
         if(!(dealModelDataListArrayList.get(position).getTopDealImage().equalsIgnoreCase(""))){
-            Picasso.with(context)
-                    .load(dealModelDataListArrayList.get(position).getTopDealImage())
-                    .placeholder(R.drawable.bg_image) //this is optional the image to display while the url image is downloading
-                    .into(holder.profilePicImg);
+            if(((BaseActivity)context).isInternetConnectionAvailable()){
+                Picasso.with(context)
+                        .load(dealModelDataListArrayList.get(position).getTopDealImage())
+                        .placeholder(R.drawable.bg_image) //this is optional the image to display while the url image is downloading
+                        .into(holder.profilePicImg);
+            }else{
+                holder.profilePicImg.setImageResource(R.drawable.no_image_available);
+            }
+        }else{
+            holder.profilePicImg.setImageResource(R.drawable.no_image_available);
         }
         holder.titleTextView.setText(dealModelDataListArrayList.get(position).getTopDealTitle());
         holder.descriptionTextView.setText(dealModelDataListArrayList.get(position).getTopDealShareUrl());

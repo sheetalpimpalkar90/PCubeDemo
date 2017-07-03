@@ -34,22 +34,21 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         /*Initialize toolbar from Base Activity*/
-        initToolBar();
-        toolBarTitle.setText(getResources().getString(R.string.login));
+//        initToolBar();
+//        toolBarTitle.setText(getResources().getString(R.string.login));
 
         /*Initialise views and methods*/
         initData();
 
         /*register facebook login callback*/
         fbLoginCallback();
-
     }
 
     private void initData() {
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.fb_login_buttonID);
     }
-    
+
     private void fbLoginCallback() {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -83,7 +82,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onError(FacebookException error) {
-
+                Log.e("FACEBOOK Error >>>>>", error.toString());
             }
         });
     }

@@ -6,14 +6,16 @@ import android.util.DisplayMetrics;
 // Constant class
 public class Constants
 {
-    public static final  String BASE_SERVER                   = "https://stagingapi.desidime.com/v3/deals.json?type=";
-    public static final  String GET_TOP_DEALS                 = "top&deal_view=true";
-    public static final  String GET_POPULAR_DEALS             = "top&deal_view=true";
+    public static final  String BASE_SERVER                         = "https://stagingapi.desidime.com/v3/deals.json?type=";
+    public static final  String GET_TOP_DEALS                       = "top&deal_view=true";
+    public static final  String GET_POPULAR_DEALS                   = "top&deal_view=true";
 
     // Shared Preference Keys
-    public static final  String isAutoLoginSP                 = "isAutoLogin";
-    public static final  String userNameSP                    = "name";
-    public static final  String profilePicSP                  = "picture";
+    public static final  String isAutoLoginSP                       = "isAutoLogin";
+    public static final  String userNameSP                          = "name";
+    public static final  String profilePicSP                        = "picture";
+    public static final  String topDealCountSP                      = "top_deal_count";
+    public static final  String popularDealCountSP                  = "popular_deal_count";
     // Auto Login Check
     public static String isAutoLogin = "na";
 
