@@ -6,6 +6,14 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <!--User Profile pic dimensions-->
+    <dimen name="profile_pic_width">100dp</dimen>
+    <dimen name="profile_pic_height">100dp</dimen>
+
+    <!--Deal images dimens-->
+    <dimen name="deal_image_width">80dp</dimen>
+    <dimen name="deal_image_height">80dp</dimen>
+
     <dimen name="textSize_10sp">10sp</dimen>
     <dimen name="textSize_12sp">12sp</dimen>
     <dimen name="textSize_14sp">14sp</dimen>

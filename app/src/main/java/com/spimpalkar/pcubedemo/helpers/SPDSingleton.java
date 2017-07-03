@@ -17,6 +17,12 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.spimpalkar.pcubedemo.activities.LoginActivity;
+import com.spimpalkar.pcubedemo.activities.NavigationDrawerActivity;
+import com.spimpalkar.pcubedemo.activities.SplashScreenActivity;
+
+import java.util.ArrayList;
+
 
 public class SPDSingleton
 {
@@ -101,4 +107,27 @@ public class SPDSingleton
     {
         progressDialog.hide();
     }
+
+    private Class<LoginActivity> getLoginClass()
+    {
+        return LoginActivity.class;
+    }
+
+    public void presentLoginPage(Context passedContext)
+    {
+        Intent activityChangeIntent = new Intent(passedContext, getLoginClass());
+        passedContext.startActivity(activityChangeIntent);
+    }
+
+    private Class<NavigationDrawerActivity> getNavigationDrawerClass()
+    {
+        return NavigationDrawerActivity.class;
+    }
+
+    public void presentNavigationDrawerActivity(Context passedContext)
+    {
+        Intent activityChangeIntent = new Intent(passedContext, getNavigationDrawerClass());
+        passedContext.startActivity(activityChangeIntent);
+    }
+
 }

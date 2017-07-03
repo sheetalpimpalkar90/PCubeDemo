@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--User Profile pic dimensions-->
+    <dimen name="profile_pic_width">160dp</dimen>
+    <dimen name="profile_pic_height">160dp</dimen>
+
+    <!--Deal images dimens-->
+    <dimen name="deal_image_width">140dp</dimen>
+    <dimen name="deal_image_height">140dp</dimen>
+
     <!--Text sizes-->
     <dimen name="textSize_10sp">15sp</dimen>
     <dimen name="textSize_12sp">17sp</dimen>
