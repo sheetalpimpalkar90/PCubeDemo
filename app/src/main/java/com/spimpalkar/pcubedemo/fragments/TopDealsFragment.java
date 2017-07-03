@@ -27,8 +27,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by manish on 7/1/17.
+ * Created by sheetal.pimpalkar on 6/30/2017.
  */
 
 public class TopDealsFragment extends Fragment
@@ -58,6 +59,8 @@ public class TopDealsFragment extends Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+         /*If connected to internet, get the data from server else show the offline data by getting
+        * data from Sqlite database*/
         if(((BaseActivity)getActivity()).isInternetConnectionAvailable()){
             preSetup();
         }else{
@@ -66,6 +69,7 @@ public class TopDealsFragment extends Fragment
         }
     }
 
+    /*Call the webservice methods*/
     private  void preSetup()
     {
         callbackInitialisation();

@@ -18,10 +18,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Sheetal on 5/10/17.
- */
 
+/*Handling Volley Get,post,delete requests*/
 public class Webservices
 {
     private WebServiceDelegate  webserviceObject; // Instance of interface

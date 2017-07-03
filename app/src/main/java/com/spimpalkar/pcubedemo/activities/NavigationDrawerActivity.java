@@ -111,7 +111,7 @@ public class NavigationDrawerActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         if (item.getItemId() == R.id.nav_logout) {
             logoutPopup();
         }
@@ -127,11 +127,18 @@ public class NavigationDrawerActivity extends BaseActivity
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        logoutFromFB();
+                        /*YES button clicked*/
+                        if(isInternetConnectionAvailable()){
+                            logoutFromFB();
+                        }else{
+                            SPDSingleton.getInstance().showShortToast(getResources().getString(R.string.no_internet_connection),
+                                    NavigationDrawerActivity.this);
+                        }
+
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
+                        /*No button clicked*/
                         break;
                 }
             }
@@ -142,6 +149,7 @@ public class NavigationDrawerActivity extends BaseActivity
                 .setNegativeButton("No", dialogClickListener).show();
     }
 
+    /*Logout fromm from facebook and clear tables from database*/
     private void logoutFromFB(){
         FacebookSdk.sdkInitialize(getApplicationContext());
         LoginManager.getInstance().logOut();

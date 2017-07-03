@@ -140,15 +140,6 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
         return exists;
     }
 
-    /*Check if Popular deal ID exists*/
-    public boolean existsPopularDeal(String id) {
-        Cursor cursor = this.getWritableDatabase().rawQuery("select 1 from popular_deal where popular_deal_id=?",
-                new String[] { id });
-        boolean exists = (cursor.getCount() > 0);
-        cursor.close();
-        return exists;
-    }
-
     /*Get list of top deals*/
     public List<DealModelDataList> getAllTopDeals() {
         List<DealModelDataList> dealModelList = new ArrayList<DealModelDataList>();
@@ -172,23 +163,6 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
         return dealModelList;
     }
 
-//    /*Get Top Deal by ID*/
-//    public DealModel.DealDataModel.DealModelDataList getTopDealByID(int id) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.query(TABLE_TOP_DEALS, new String[]{TOP_DEAL_ID,
-//                        TOP_DEAL_TITLE, TOP_DEAL_IMAGE, TOP_DEAL_DESCRIPTION}, TOP_DEAL_ID + "=?",
-//                new String[]{String.valueOf(id)}, null, null, null, null);
-//        if (cursor != null)
-//            cursor.moveToFirst();
-//        DealModel.DealDataModel.DealModelDataList dealModel = new DealModel.DealDataModel.DealModelDataList();
-//        dealModel.setTopDealId(Integer.parseInt(cursor.getString(0)));
-//        dealModel.setTopDealTitle(cursor.getString(1));
-//        dealModel.setTopDealImage(cursor.getString(2));
-//        dealModel.setTopDealShareUrl(cursor.getString(3));
-//
-//        return dealModel;
-//    }
 
     /*Update particular row in Top deal table*/
     public int updateTopDealTable(DealModelDataList dealModel) {
@@ -205,7 +179,7 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(dealModel.getTopDealId())});
     }
 
-    // Deleting single contact
+    /*Delete single top deal*/
     public void deleteTopDeal(DealModelDataList dealModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TOP_DEALS, TOP_PRIMARY_KEY_ID + " = ?",
@@ -249,6 +223,15 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
+    /*Check if Popular deal ID exists*/
+    public boolean existsPopularDeal(String id) {
+        Cursor cursor = this.getWritableDatabase().rawQuery("select 1 from popular_deal where popular_deal_id=?",
+                new String[] { id });
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+    }
+
     /*Get list of popular deals*/
     public List<DealModelDataList> getAllPopularDeals() {
         List<DealModelDataList> popularDealModelList = new ArrayList<DealModelDataList>();
@@ -287,7 +270,7 @@ public class SqliteDBHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(dealModel.getTopDealId())});
     }
 
-    /*Delete popular deal*/
+    /*Delete single popular deal*/
     public void deletePopularDeal(DealModelDataList dealModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_POPULAR_DEALS, POPULAR_PRIMARY_KEY_ID + " = ?",

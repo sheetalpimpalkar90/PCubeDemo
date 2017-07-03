@@ -4,8 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+
 /**
- * Created by intel on 03/07/2017.
+ * Created by sheetal.pimpalkar on 6/30/2017.
  */
 
 /*Class to get deals list*/

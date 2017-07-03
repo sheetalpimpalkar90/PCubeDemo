@@ -2,8 +2,9 @@ package com.spimpalkar.pcubedemo.models;
 
 import java.io.Serializable;
 
+
 /**
- * Created by intel on 02/07/2017.
+ * Created by sheetal.pimpalkar on 6/30/2017.
  */
 
 public class FBUserInfo implements Serializable{

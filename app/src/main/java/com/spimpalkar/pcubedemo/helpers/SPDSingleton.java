@@ -1,7 +1,8 @@
 package com.spimpalkar.pcubedemo.helpers;
 
+
 /**
- * Created by QMCPL on 08/05/17.
+ * Created by sheetal.pimpalkar on 6/30/2017.
  */
 
 import android.app.Dialog;
@@ -24,110 +25,90 @@ import com.spimpalkar.pcubedemo.activities.SplashScreenActivity;
 import java.util.ArrayList;
 
 
-public class SPDSingleton
-{
+public class SPDSingleton {
     public static final String MY_PREFS_NAME = "login_preferences";
     ProgressDialog progressDialog;
     private static SPDSingleton spdSingleton;
 
     public static SPDSingleton getInstance() {
-        if(spdSingleton == null){
+        if (spdSingleton == null) {
             spdSingleton = new SPDSingleton();
         }
         return spdSingleton;
     }
 
-    public void setStringToSp(String value, String key, Context context)
-    {
+    /*Setting string value to shared preferences*/
+    public void setStringToSp(String value, String key, Context context) {
         SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(key, value);
         editor.apply();
     }
 
-    public void setIntegerToSp(int value, String key, Context context)
-    {
+    /*Setting int value to shared preferences*/
+    public void setIntegerToSp(int value, String key, Context context) {
         SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
         editor.putInt(key, value);
         editor.apply();
     }
 
-    public void setDoubleToSp(double value, String key, Context context)
-    {
-        SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
-        editor.putFloat(key, (float) value);
-        editor.apply();
-    }
-
-    public String getStringFromSp(String key, Context context)
-    {
+    /*Getting String value from preferences*/
+    public String getStringFromSp(String key, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getString(key, "N/A");
     }
 
-    public int getIntegerFromSp(String key, Context context)
-    {
+    /*Getting int value from preferences*/
+    public int getIntegerFromSp(String key, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getInt(key, 0);
     }
 
-    public Double getDoubleFromSp(String key, Context context)
-    {
-        SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
-        return Double.valueOf(prefs.getFloat(key, 0));
-    }
-
-    public void clearDataFromSp(Context context)
-    {
+    /*Clear preferences*/
+    public void clearDataFromSp(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().clear().commit();
     }
 
     /* Short toast message */
-    public void showShortToast(String txtString, Context contextPassed)
-    {
+    public void showShortToast(String txtString, Context contextPassed) {
         Toast.makeText(contextPassed, txtString, Toast.LENGTH_SHORT).show();
     }
 
     /* Long toast message*/
-    public void showLongToast(String txtString, Context contextPassed)
-    {
+    public void showLongToast(String txtString, Context contextPassed) {
         Toast.makeText(contextPassed, txtString, Toast.LENGTH_LONG).show();
     }
 
     // Indicators
-    public void  showProgressDialog(Context passedContext, String displayString, Boolean blockUI)
-    {
+    public void showProgressDialog(Context passedContext, String displayString, Boolean blockUI) {
         progressDialog = new ProgressDialog(passedContext);
         progressDialog.setMessage(displayString);
         progressDialog.setCancelable(blockUI);
         progressDialog.show();
     }
 
-    public  void hideProgressDialog()
-    {
+    public void hideProgressDialog() {
         progressDialog.hide();
     }
 
-    private Class<LoginActivity> getLoginClass()
-    {
-        return LoginActivity.class;
-    }
 
-    public void presentLoginPage(Context passedContext)
-    {
+    /*Presenting Login screen using intent*/
+    public void presentLoginPage(Context passedContext) {
         Intent activityChangeIntent = new Intent(passedContext, getLoginClass());
         passedContext.startActivity(activityChangeIntent);
     }
 
-    private Class<NavigationDrawerActivity> getNavigationDrawerClass()
-    {
-        return NavigationDrawerActivity.class;
+    private Class<LoginActivity> getLoginClass() {
+        return LoginActivity.class;
     }
 
-    public void presentNavigationDrawerActivity(Context passedContext)
-    {
+    /*Presenting navigation drawer screen using intent*/
+    public void presentNavigationDrawerActivity(Context passedContext) {
         Intent activityChangeIntent = new Intent(passedContext, getNavigationDrawerClass());
         passedContext.startActivity(activityChangeIntent);
     }
 
+    private Class<NavigationDrawerActivity> getNavigationDrawerClass() {
+        return NavigationDrawerActivity.class;
+    }
 }
